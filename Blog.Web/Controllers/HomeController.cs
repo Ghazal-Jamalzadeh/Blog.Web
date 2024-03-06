@@ -18,7 +18,7 @@ namespace Blog.Web.Controllers
         {
 
             var connection = new SqlConnection("Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-            var command = new SqlCommand($"select title from post where id=1", connection);
+            var command = new SqlCommand($"select * from post where id=1", connection);
            // var usernameParameter = new SqlParameter("username", username);
            // var passwordParameter = new SqlParameter("password", password);
            // command.Parameters.Add(usernameParameter);
@@ -26,10 +26,14 @@ namespace Blog.Web.Controllers
 
 
             connection.Open();
-            var isExists = command.ExecuteScalar();
+            var isExists = command.ExecuteReader();
+            string content = string.Empty;
+            while(isExists.Read()) {
+                content =  String.Format("{0}, {1} , {2}",
+                    isExists[0], isExists[1] , isExists[2] );
+            }
             connection.Close();
-
-            return Content(isExists.ToString()!);
+            return Content(content);
 
 
             // return View();
