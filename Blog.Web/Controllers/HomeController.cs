@@ -18,7 +18,7 @@ namespace Blog.Web.Controllers
         {
 
             var connection = new SqlConnection("Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-            var command = new SqlCommand($"select count(1) from post where id=1", connection);
+            var command = new SqlCommand($"select title from post where id=1", connection);
            // var usernameParameter = new SqlParameter("username", username);
            // var passwordParameter = new SqlParameter("password", password);
            // command.Parameters.Add(usernameParameter);
@@ -26,17 +26,16 @@ namespace Blog.Web.Controllers
 
 
             connection.Open();
-            var isExists = Convert.ToInt32(command.ExecuteScalar());
+            var isExists = command.ExecuteScalar();
             connection.Close();
-            if (isExists >= 1)
-                return Content("Ok");
-            return Content("Not OK");
+
+            return Content(isExists.ToString()!);
 
 
             // return View();
             //Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True
 
-            return Json(new { title = ":))))))"});
+            //return Json(new { title = ":))))))"});
         }
 
         public IActionResult Privacy()
