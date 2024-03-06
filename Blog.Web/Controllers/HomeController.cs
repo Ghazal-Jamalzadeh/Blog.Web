@@ -1,5 +1,6 @@
 using Blog.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 
 namespace Blog.Web.Controllers
@@ -15,6 +16,23 @@ namespace Blog.Web.Controllers
 
         public IActionResult Index()
         {
+
+            var connection = new SqlConnection("Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            var command = new SqlCommand($"select count(1) from post where id=1", connection);
+           // var usernameParameter = new SqlParameter("username", username);
+           // var passwordParameter = new SqlParameter("password", password);
+           // command.Parameters.Add(usernameParameter);
+           // command.Parameters.Add(passwordParameter);
+
+
+            connection.Open();
+            var isExists = Convert.ToInt32(command.ExecuteScalar());
+            connection.Close();
+            if (isExists >= 1)
+                return Content("Ok");
+            return Content("Not OK");
+
+
             // return View();
             //Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True
 
