@@ -15,7 +15,10 @@ namespace Blog.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(); //Json(new { title = ":))))))"});
+            // return View();
+            //Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True
+
+            return Json(new { title = ":))))))"});
         }
 
         public IActionResult Privacy()
