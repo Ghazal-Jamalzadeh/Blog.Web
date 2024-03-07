@@ -18,7 +18,7 @@ namespace Blog.Web.Controllers
         {
 
             var connection = new SqlConnection("Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
-            var command = new SqlCommand($"select * from post where id=1", connection);
+            var command = new SqlCommand($"select * from post", connection);
            // var usernameParameter = new SqlParameter("username", username);
            // var passwordParameter = new SqlParameter("password", password);
            // command.Parameters.Add(usernameParameter);
@@ -29,7 +29,7 @@ namespace Blog.Web.Controllers
             var isExists = command.ExecuteReader();
             string content = string.Empty;
             while(isExists.Read()) {
-                content =  String.Format("{0}, {1} , {2}",
+                content += "\n" + String.Format("{0}, {1} , {2}",
                     isExists[0], isExists[1] , isExists[2] );
             }
             connection.Close();
