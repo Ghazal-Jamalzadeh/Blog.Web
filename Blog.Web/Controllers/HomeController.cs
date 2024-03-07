@@ -29,12 +29,15 @@ namespace Blog.Web.Controllers
             var isExists = command.ExecuteReader();
             string content = string.Empty;
             while(isExists.Read()) {
-                content += "\n" + String.Format("{0}, {1} , {2}",
-                    isExists[0], isExists[1] , isExists[2] );
+                //content += "\n" +  String.Format("{0}, {1} , {2}",
+                //    isExists[0], isExists[1] , isExists[2] );
+
+                content += "\n" + string.Format(" {0} , {1}",
+                   isExists[1], isExists[2]);
             }
             connection.Close();
             return Content(content);
-
+            
 
             // return View();
             //Data Source=.;Initial Catalog=Blog;Integrated Security=True;Encrypt=True;Trust Server Certificate=True
